@@ -4,6 +4,8 @@ import Pages.components.CalendarComp;
 import Pages.components.ResultTab;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Random;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -101,5 +103,9 @@ public class FormPage {
         return this;
     }
 
+   /* public void
+    var rand = new Random();
+    var list = Arrays.asList("apple", "orange", "grape");
+    var randomElement = list.get(rand.nextInt(list.size()));*/
 
 }
