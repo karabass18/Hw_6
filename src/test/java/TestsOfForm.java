@@ -1,4 +1,5 @@
 import Pages.FormPage;
+import Pages.SetRandomDataFoForm;
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
@@ -20,10 +21,14 @@ public class TestsOfForm extends StartsSet {
         String userName = faker.name().firstName();
         String userLastName = faker.name().lastName();
         String userEmail = faker.internet().emailAddress();
+        String userAdd = faker.address().streetAddress();
 
-        Random rand = new Random();
-        List<String> listDate = Arrays.asList("Male", "Female", "Other");
-        String userGen = listDate.get(rand.nextInt(listDate.size()));
+        SetRandomDataFoForm setRandomDataFoForm = new SetRandomDataFoForm();
+        String userGen = setRandomDataFoForm.choiceGen();
+        String userSubj = setRandomDataFoForm.choiceSubj();
+        String userHobb = setRandomDataFoForm.choiceHobb();
+        String userState = setRandomDataFoForm.choiceState();
+        String userCity = setRandomDataFoForm.choiceCity(userState);
 
         String userPhone = RandomStringUtils.random(10, false, true);
 
@@ -33,19 +38,11 @@ public class TestsOfForm extends StartsSet {
         String userBDMonth = birthday[1];
         String userBDYear = birthday[2];
 
-        listDate = Arrays.asList("Maths", "Chemistry", "Computer Science", "Commerce", "Economics");
-        String userSubj = listDate.get(rand.nextInt(listDate.size()));
-
-        listDate = Arrays.asList("Sports", "Reading", "Music");
-        String userHobb = listDate.get(rand.nextInt(listDate.size()));
-
         String picPath = "src/test/resources/";
         String picName = "squid-game-anime.jpg";
-        String userAdd = faker.address().streetAddress();
-        String userState = "Haryana";
-        String userCity = "Karnal";
 
-        new FormPage().openForm()
+        FormPage formPage = new FormPage();
+        formPage.openForm()
                 .setFirstName(userName)
                 .setLastName(userLastName)
                 .setEmail(userEmail)
@@ -61,7 +58,7 @@ public class TestsOfForm extends StartsSet {
                 .submitInfo();
 
 
-        new FormPage().checkRegistrResultTabAppear()
+        formPage.checkRegistrResultTabAppear()
                 .checkRegistrResult("Student Name", userName + " " + userLastName)
                 .checkRegistrResult("Student Email", userEmail)
                 .checkRegistrResult("Gender", userGen)
@@ -74,4 +71,3 @@ public class TestsOfForm extends StartsSet {
                 .checkRegistrResult("State and City", userState + " " + userCity);
     }
 }
-
